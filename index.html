@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Graphic Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f0b0a;
+            --bg-card: #1a1412;
+            --burgundy: #5c2e2e;
+            --burgundy-light: #7a3f3f;
+            --gold: #c9a961;
+            --text-primary: #e5e0db;
+            --text-secondary: #b5aca5;
+            --border: #3a2e28;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Decorative border pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                var(--burgundy) 0%, 
+                var(--gold) 25%, 
+                var(--burgundy) 50%, 
+                var(--gold) 75%, 
+                var(--burgundy) 100%);
+            z-index: 1000;
+            opacity: 0.6;
+        }
+
+        /* Ornamental corners */
+        .corner-ornament {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .corner-ornament.top-left {
+            top: 20px;
+            left: 20px;
+            border-top: 2px solid var(--gold);
+            border-left: 2px solid var(--gold);
+        }
+
+        .corner-ornament.top-right {
+            top: 20px;
+            right: 20px;
+            border-top: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+        }
+
+        .corner-ornament.bottom-left {
+            bottom: 20px;
+            left: 20px;
+            border-bottom: 2px solid var(--gold);
+            border-left: 2px solid var(--gold);
+        }
+
+        .corner-ornament.bottom-right {
+            bottom: 20px;
+            right: 20px;
+            border-bottom: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 100px 20px 60px;
+            position: relative;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.05em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 20px rgba(107, 29, 60, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--burgundy-light);
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* About section */
+        .about {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 100px;
+            padding: 60px 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            position: relative;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .about::before,
+        .about::after {
+            content: '✦';
+            position: absolute;
+            color: var(--burgundy-light);
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .about::before {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about::after {
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+        }
+
+        /* Portfolio grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 380px));
+            gap: 40px;
+            margin-bottom: 100px;
+            justify-content: center;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+            animation: fadeInUp 1s ease-out backwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.4s; }
+        .project-card:nth-child(2) { animation-delay: 0.5s; }
+        .project-card:nth-child(3) { animation-delay: 0.6s; }
+        .project-card:nth-child(4) { animation-delay: 0.7s; }
+        .project-card:nth-child(5) { animation-delay: 0.8s; }
+        .project-card:nth-child(6) { animation-delay: 0.9s; }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--burgundy) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--burgundy-light);
+        }
+
+        .project-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 420px;
+            background: linear-gradient(135deg, var(--burgundy) 0%, #1a1412 100%);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-style: italic;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .project-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .project-card p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Contact section */
+        .contact {
+            text-align: center;
+            padding: 80px 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            position: relative;
+            animation: fadeInUp 1s ease-out 1s backwards;
+        }
+
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-button {
+            padding: 15px 40px;
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .contact-button:hover {
+            background: var(--burgundy);
+            border-color: var(--burgundy);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(107, 29, 60, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .corner-ornament {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative corner ornaments -->
+    <div class="corner-ornament top-left"></div>
+    <div class="corner-ornament top-right"></div>
+    <div class="corner-ornament bottom-left"></div>
+    <div class="corner-ornament bottom-right"></div>
+
+    <!-- Header -->
+    <header>
+        <h1>Your Name</h1>
+        <p class="subtitle">Graphic Designer</p>
+        <p class="tagline">Bold design forged with precision and purpose</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <!-- About Section -->
+        <section id="about" class="about">
+            <h2>About</h2>
+            <p>I combine classical design principles with bold, contemporary execution. Every project is built with deliberate intention, uncompromising standards, and a focus on creating work that commands attention and stands the test of time.</p>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio">
+            <div class="portfolio-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="BoyWithuke.png" alt="BoyWithUke Poster Design">
+                    </div>
+                    <h3>BoyWithUke</h3>
+                    <p>Bold typographic poster design featuring layered repetition and atmospheric depth.</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="burnout.png" alt="Burnout Album Cover">
+                    </div>
+                    <h3>Burnout</h3>
+                    <p>Album cover design combining warm tones with modern track listing layout.</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="sky.png" alt="The Sky Is Never Truly Dark Poster">
+                    </div>
+                    <h3>The Sky Is Never Truly Dark</h3>
+                    <p>Conceptual poster merging bold typography with atmospheric landscape photography.</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="escapet.png" alt="Escape Poster Design">
+                    </div>
+                    <h3>Escape</h3>
+                    <p>Vibrant illustrative poster exploring themes of freedom through surreal composition.</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="eye-design.png" alt="Eye Design - Surreal Illustration">
+                    </div>
+                    <h3>Perspective</h3>
+                    <p>Surreal illustration examining perception through cosmic symbolism and falling figures.</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="worlds-collide.png" alt="When Worlds Collide Typography">
+                    </div>
+                    <h3>When Worlds Collide</h3>
+                    <p>Mixed media typography piece with collage aesthetics and textured layering.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <h2>Let's Work Together</h2>
+            <p>Interested in collaborating? I'd love to hear about your project.</p>
+            <div class="contact-links">
+                <a href="mailto:your.email@example.com" class="contact-button">Email Me</a>
+                <a href="#" class="contact-button">View Resume</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Max Gopp. All rights reserved.</p>
+    </footer>
+</body>
+</html>
